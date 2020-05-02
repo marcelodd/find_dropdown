@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
               showSearchBox: false,
               labelStyle: TextStyle(color: Colors.redAccent),
               backgroundColor: Colors.redAccent,
-              titleStyle:TextStyle(color: Colors.greenAccent),
+              titleStyle: TextStyle(color: Colors.greenAccent),
               validate: (String item) {
                 if (item == null)
                   return "Required field";
@@ -53,11 +53,14 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             FindDropdown<UserModel>(
               label: "Nome",
+              onClose: () {
+                print('TESTE');
+              },
               onFind: (String filter) => getData(filter),
               searchBoxDecoration: InputDecoration(
-                hintText: "Search",
-                border: OutlineInputBorder(),
-              ),
+                  hintText: "Search",
+                  border: OutlineInputBorder(),
+                  icon: Icon(Icons.search)),
               onChanged: (UserModel data) => print(data),
             ),
             FindDropdown<UserModel>(

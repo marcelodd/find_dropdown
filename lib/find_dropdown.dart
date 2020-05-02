@@ -17,6 +17,7 @@ typedef Widget FindDropdownItemBuilderType<T>(
 
 class FindDropdown<T> extends StatefulWidget {
   final String label;
+  final Function onClose;
   final bool showClearButton;
   final TextStyle labelStyle;
   final List<T> items;
@@ -50,6 +51,7 @@ class FindDropdown<T> extends StatefulWidget {
     Key key,
     @required this.onChanged,
     this.label,
+    this.onClose,
     this.labelStyle,
     this.items,
     this.selectedItem,
@@ -97,11 +99,17 @@ class _FindDropdownState<T> extends State<FindDropdown<T>> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        if (widget.label != null)
-          Text(
-            widget.label,
-            style: widget.labelStyle ?? Theme.of(context).textTheme.subhead,
-          ),
+        Row(
+          children: [
+            Visibility(
+              visible: widget.label != null,
+              child: Text(
+                widget.label,
+                style: widget.labelStyle ?? Theme.of(context).textTheme.subhead,
+              ),
+            ),
+          ],
+        ),
         if (widget.label != null) SizedBox(height: 5),
         Column(
           mainAxisSize: MainAxisSize.min,
@@ -116,6 +124,7 @@ class _FindDropdownState<T> extends State<FindDropdown<T>> {
                       context,
                       items: widget.items,
                       label: widget.label,
+                      onClose: widget.onClose,
                       onFind: widget.onFind,
                       showSearchBox: widget.showSearchBox,
                       itemBuilder: widget.dropdownItemBuilder,
